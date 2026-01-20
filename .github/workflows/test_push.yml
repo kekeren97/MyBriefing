@@ -1,13 +1,20 @@
-name: WPS Direct Text Test
+name: Daily Productivity Auto-Push
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *' # 每天北京时间早上 9 点自动执行，你连按钮都不用点了
+  workflow_dispatch: # 保留手动按钮备用
 
 jobs:
-  push:
+  push_report:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Plain Text
+      - name: Send to WPS
         run: |
           curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
-          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"Hello! 这是一条来自 GitHub 的纯文本测试。\"}}"
+          -d '{
+            "msgtype": "markdown",
+            "markdown": {
+              "content": "### 🚀 Productivity Digest | 2026.01.20\n\n**今日核心：AI 代理化浪潮**\n> 协作工具已实现跨应用任务闭环。\n\n---\n* **飞书/钉钉**: 自动化节点与 Agent 商店上线。\n* **MS 365/Slack**: 深度集成日历冲突协调与 CRM 预测。\n* **企微/Google**: AI 导购与 Docs 数据检测升级。\n\n---\n#### 🔗 快速查阅\n[点击此处直接查看今日精编简报(网页版)](https://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html)\n\n*提示：此报由 Gemini 每日 09:00 自动生成*"
+            }
+          }'
