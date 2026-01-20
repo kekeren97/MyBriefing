@@ -8,13 +8,13 @@ jobs:
   push:
     runs-on: ubuntu-latest
     steps:
-      - name: Send to WPS
+      - name: Send Today Digest
         run: |
           curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
           -d '{
             "msgtype": "text",
             "text": {
-              "content": "🚀 Productivity Digest | 2026.01.20\n\n今日核心：AI 代理化浪潮。协作工具已实现跨应用任务闭环。\n\n● 飞书/钉钉: 自动化节点与 Agent 商店上线\n● MS 365/Slack: 集成日历与 CRM 预测\n● 企微/Google: AI 导购与数据检测升级\n\n🔗 详情查阅：\nhttps://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html\n\n(Gemini 每日 09:00 自动投递)"
+              "content": "📅 Productivity Digest | 2026.01.20\n\n【今日趋势】AI 代理化浪潮：Microsoft 与 Slack 率先实现跨应用 Agent 任务闭环，协作工具从“辅助”转向“自主执行”。\n\n【六大工具更新要点】\n1. Microsoft 365：Outlook Copilot 支持自动协调冲突日历并代拟道歉函。\n2. 飞书 (Feishu)：多维表格上线 AI 自动化节点，支持语音配置审批流。\n3. Slack：深度集成 Salesforce Agent，频道内直接处理 CRM 销机预测。\n4. 钉钉 (DingTalk)：个人 Agent 商店正式上线，支持自定义行政/财务分身。\n5. 企业微信：连接微信能力升级，AI 导购支持自动触发客户回访。\n6. Google Workspace：Gemini in Docs 支持实时检测文内引用数据的时效性。\n\n💡 思考：当工具学会自主决策，人类的护城河是否只剩下战略性的“逻辑锚定”？\n\n(由 Gemini 自动抓取并投递)"
             }
           }'
