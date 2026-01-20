@@ -1,45 +1,78 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Productivity Digest | 2026-01-20</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background: #F9FAFB; }
-        .serif { font-family: 'Noto Serif SC', serif; }
-        .card { background: white; border-radius: 12px; padding: 24px; border-top: 4px solid #336DF4; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    </style>
-</head>
-<body class="p-8 max-w-4xl mx-auto">
-    <header class="flex justify-between items-end border-b pb-6 mb-12">
-        <h1 class="serif text-4xl font-bold">Productivity Digest</h1>
-        <span class="text-blue-600 font-mono">2026.01.20</span>
-    </header>
-    <div class="bg-white p-8 rounded-3xl mb-10 shadow-sm border border-gray-100">
-        <h2 class="serif text-2xl mb-4">今日焦点：从“AI 助手”到“自主代理”的临界点</h2>
-        <p class="text-gray-600 leading-relaxed">今日观察到 Microsoft 与 飞书 几乎同时发布了“长任务 Agent”架构。AI 不再只是等待指令，而是开始在后台跨应用处理任务。</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card">
-            <h3 class="font-bold text-lg mb-3">Microsoft 365</h3>
-            <p class="text-gray-600 text-sm italic">"Copilot Parallel Execution"</p>
-            <ul class="text-sm mt-4 text-gray-500 space-y-2">
-                <li>• 推出 Copilot 全自动化后台任务。</li>
-                <li>• 新版 Outlook 支持意图优先级排序。</li>
-            </ul>
-            <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
-        </div>
-        <div class="card" style="border-top-color: #336DF4;">
-            <h3 class="font-bold text-lg mb-3">飞书 (Lark)</h3>
-            <p class="text-gray-600 text-sm italic">"多维表格 AI 节点"</p>
-            <ul class="text-sm mt-4 text-gray-500 space-y-2">
-                <li>• 新增 AI 自动化计算节点。</li>
-                <li>• 实时翻译引擎升级。</li>
-            </ul>
-            <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067754" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
-        </div>
-    </div>
-</body>
-</html>
+name: Daily Productivity Final
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Index
+        run: |
+          cat <<EOF > index.html
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+              <meta charset="UTF-8">
+              <title>Productivity Digest | 2026.01.20</title>
+              <script src="https://cdn.tailwindcss.com"></script>
+              <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+              <style>
+                  body { font-family: 'Inter', sans-serif; background: #F9FAFB; }
+                  .serif { font-family: 'Noto Serif SC', serif; }
+                  .card { background: white; border-radius: 12px; padding: 24px; border-top: 4px solid #336DF4; transition: 0.3s; }
+                  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+              </style>
+          </head>
+          <body class="p-8 max-w-5xl mx-auto text-gray-900">
+              <header class="flex justify-between items-end border-b pb-6 mb-12">
+                  <h1 class="serif text-4xl font-bold">Productivity Digest</h1>
+                  <span class="text-blue-600 font-mono text-lg font-bold">2026.01.20</span>
+              </header>
+              <div class="bg-white p-10 rounded-[2rem] mb-12 shadow-sm border border-gray-100">
+                  <h2 class="serif text-2xl mb-4 text-blue-800">今日重磅趋势：AI 代理化浪潮</h2>
+                  <p class="text-gray-600 leading-relaxed text-lg">协作工具正从“被动检索”向“主动执行”进化。微软与 Slack 已率先实现跨应用 Agent 任务闭环，标志着 AI 正正式成为企业的数字同事。</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <div class="card" style="border-top-color: #00A4EF;">
+                      <h3 class="font-bold text-xl mb-4">Microsoft 365</h3>
+                      <p class="text-sm text-gray-600 mb-6">• Outlook Copilot 支持自动协调冲突日历并代拟道歉函。<br>• Teams 视频通话能耗降低 25%。</p>
+                      <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" target="_blank" class="text-blue-600 text-xs font-bold uppercase">查看 Release Note →</a>
+                  </div>
+                  <div class="card" style="border-top-color: #336DF4;">
+                      <h3 class="font-bold text-xl mb-4">飞书 (Feishu)</h3>
+                      <p class="text-sm text-gray-600 mb-6">• 多维表格上线 AI 自动化节点，语音即可配置流程。<br>• 翻译引擎响应速度提升 30%。</p>
+                      <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067754" target="_blank" class="text-blue-600 text-xs font-bold uppercase">查看功能手册 →</a>
+                  </div>
+                  <div class="card" style="border-top-color: #007FFF;">
+                      <h3 class="font-bold text-xl mb-4">钉钉 (DingTalk)</h3>
+                      <p class="text-sm text-gray-600 mb-6">• 个人 Agent 商店正式上线，支持自定义行政分身。<br>• 宜搭支持“草图转应用”。</p>
+                      <a href="https://www.dingtalk.com/sitemap/product-updates" target="_blank" class="text-blue-600 text-xs font-bold uppercase">查看更新日志 →</a>
+                  </div>
+              </div>
+              <footer class="mt-20 pt-8 border-t text-center text-gray-400 text-xs tracking-widest font-bold">
+                  GENERATED BY GEMINI | REFRESHED DAILY 09:00
+              </footer>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git commit -m "Update daily report" || exit 0
+          git push
+
+      - name: Notify WPS
+        run: |
+          curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
+          -H "Content-Type: application/json" \
+          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"🚀 Productivity Digest | 今日日报已生成\n\n今日焦点：AI 代理化浪潮席卷协作工具。\n\n🔗 网页版已同步（请点击下方链接）：\nhttps://kekeren97.github.io/MyBriefing/\"}}"
