@@ -1,20 +1,78 @@
-name: Daily Productivity Auto-Push
+name: Daily Productivity Auto-Web
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 1 * * *' # 每天北京时间早上 9 点
   workflow_dispatch:
 
 jobs:
-  push:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Send Today Digest
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create Daily Webpage
+        run: |
+          cat <<EOF > index.html
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+              <meta charset="UTF-8">
+              <title>Productivity Digest | 2026-01-20</title>
+              <script src="https://cdn.tailwindcss.com"></script>
+              <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
+              <style>
+                  body { font-family: 'Inter', sans-serif; background: #F9FAFB; }
+                  .serif { font-family: 'Noto Serif SC', serif; }
+                  .card { background: white; border-radius: 12px; padding: 24px; border-top: 4px solid #336DF4; transition: 0.3s; }
+                  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+              </style>
+          </head>
+          <body class="p-8 max-w-4xl mx-auto">
+              <header class="flex justify-between items-end border-b pb-6 mb-12">
+                  <h1 class="serif text-4xl font-bold">Productivity Digest</h1>
+                  <span class="text-blue-600 font-mono">2026.01.20</span>
+              </header>
+              <div class="bg-white p-8 rounded-3xl mb-10 shadow-sm border border-gray-100">
+                  <h2 class="serif text-2xl mb-4">今日焦点：从“AI 助手”到“自主代理”的临界点</h2>
+                  <p class="text-gray-600 leading-relaxed">今日观察到 Microsoft 与 飞书 几乎同时发布了“长任务 Agent”架构。AI 不再只是等待指令，而是开始在后台跨应用处理任务。</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="card">
+                      <h3 class="font-bold text-lg mb-3">Microsoft 365</h3>
+                      <p class="text-gray-600 text-sm italic">"Copilot Parallel Execution"</p>
+                      <ul class="text-sm mt-4 text-gray-500 space-y-2">
+                          <li>• 推出 Copilot 全自动化后台任务。</li>
+                          <li>• 新版 Outlook 支持意图优先级排序。</li>
+                      </ul>
+                      <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
+                  </div>
+                  <div class="card" style="border-top-color: #336DF4;">
+                      <h3 class="font-bold text-lg mb-3">飞书 (Lark)</h3>
+                      <p class="text-gray-600 text-sm italic">"多维表格 AI 节点"</p>
+                      <ul class="text-sm mt-4 text-gray-500 space-y-2">
+                          <li>• 新增 AI 自动化计算节点。</li>
+                          <li>• 实时翻译引擎升级。</li>
+                      </ul>
+                      <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067754" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git commit -m "Update daily report"
+          git push
+
+      - name: Send to WPS
         run: |
           curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
-          -d '{
-            "msgtype": "text",
-            "text": {
-              "content": "📅 Productivity Digest | 2026.01.20\n\n【今日趋势】AI 代理化浪潮：Microsoft 与 Slack 率先实现跨应用 Agent 任务闭环，协作工具从“辅助”转向“自主执行”。\n\n【六大工具更新要点】\n1. Microsoft 365：Outlook Copilot 支持自动协调冲突日历并代拟道歉函。\n2. 飞书 (Feishu)：多维表格上线 AI 自动化节点，支持语音配置审批流。\n3. Slack：深度集成 Salesforce Agent，频道内直接处理 CRM 销机预测。\n4. 钉钉 (DingTalk)：个人 Agent 商店正式上线，支持自定义行政/财务分身。\n5. 企业微信：连接微信能力升级，AI 导购支持自动触发客户回访。\n6. Google Workspace：Gemini in Docs 支持实时检测文内引用数据的时效性。\n\n💡 思考：当工具学会自主决策，人类的护城河是否只剩下战略性的“逻辑锚定”？\n\n(由 Gemini 自动抓取并投递)"
-            }
-          }'
+          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"🚀 Productivity Digest | 今日日报已生成\n\n今日核心：AI 代理化浪潮席卷协作工具。\n\n🔗 点击下方链接直接查看精美网页版：\nhttps://kekeren97.github.io/MyBriefing/\"}}"
