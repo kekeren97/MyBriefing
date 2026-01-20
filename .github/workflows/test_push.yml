@@ -1,18 +1,18 @@
-name: WPS Push Test
+name: Productivity Digest Final Test
 on:
-  workflow_dispatch: # 允许你点击按钮手动运行测试
+  workflow_dispatch:
 
 jobs:
   test_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Test Message
+      - name: Send Direct Message
         run: |
           curl -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
           -d '{
             "msgtype": "markdown",
             "markdown": {
-              "content": "### ✅ GitHub 自动化测试成功\n\n**发送时间**：2026-01-20\n**状态**：已成功连接至 WPS 协作机器人\n\n---\n恭喜！你的“云端发报机”已就绪。从明天起，我将每日为您更新《Productivity Digest》。"
+              "content": "### 🚀 Productivity Digest | 正式版测试\n\n**✅ 细节已修复确认**：\n1. **字体统一**：标题衬线体 vs 正文无衬线体已对齐。\n2. **底部链接**：所有产品卡片红框处已加入官方 Release Notes 跳转。\n3. **交互响应**：点击思考模块已修复 JavaScript 函数逻辑。\n\n---\n* **新增厂商**: Slack 协作动态已加入监控列表。\n* **自动化**: 每日 09:00 将准时推送至此群。\n\n[点击查看最新精编网页](https://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html)"
             }
           }'
