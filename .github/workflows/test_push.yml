@@ -1,0 +1,18 @@
+name: WPS Push Test
+on:
+  workflow_dispatch: # 允许你点击按钮手动运行测试
+
+jobs:
+  test_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Test Message
+        run: |
+          curl -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "msgtype": "markdown",
+            "markdown": {
+              "content": "### ✅ GitHub 自动化测试成功\n\n**发送时间**：2026-01-20\n**状态**：已成功连接至 WPS 协作机器人\n\n---\n恭喜！你的“云端发报机”已就绪。从明天起，我将每日为您更新《Productivity Digest》。"
+            }
+          }'
