@@ -13,8 +13,8 @@ jobs:
           curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
           -d '{
-            "msgtype": "markdown",
-            "markdown": {
-              "content": "### 🚀 Productivity Digest | 2026.01.20\n\n**今日核心：AI 代理化浪潮**\n协作工具已实现跨应用任务闭环。\n\n---\n● **飞书/钉钉**: 自动化节点与 Agent 商店上线\n● **MS 365/Slack**: 深度集成日历与 CRM 预测\n● **企微/Google**: AI 导购与数据检测升级\n\n---\n#### 🔗 详情查阅\n[点击查看今日精编简报](https://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html)\n\n*提示：Gemini 每日 09:00 自动投递*"
+            "msgtype": "text",
+            "text": {
+              "content": "🚀 Productivity Digest | 2026.01.20\n\n今日核心：AI 代理化浪潮。协作工具已实现跨应用任务闭环。\n\n● 飞书/钉钉: 自动化节点与 Agent 商店上线\n● MS 365/Slack: 集成日历与 CRM 预测\n● 企微/Google: AI 导购与数据检测升级\n\n🔗 详情查阅：\nhttps://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html\n\n(Gemini 每日 09:00 自动投递)"
             }
           }'
