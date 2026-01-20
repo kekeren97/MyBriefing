@@ -1,18 +1,13 @@
-name: Productivity Digest Final Test
+name: WPS Direct Text Test
 on:
   workflow_dispatch:
 
 jobs:
-  test_push:
+  push:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Direct Message
+      - name: Send Plain Text
         run: |
-          curl -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
+          curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
-          -d '{
-            "msgtype": "markdown",
-            "markdown": {
-              "content": "### 🚀 Productivity Digest | 正式版测试\n\n**✅ 细节已修复确认**：\n1. **字体统一**：标题衬线体 vs 正文无衬线体已对齐。\n2. **底部链接**：所有产品卡片红框处已加入官方 Release Notes 跳转。\n3. **交互响应**：点击思考模块已修复 JavaScript 函数逻辑。\n\n---\n* **新增厂商**: Slack 协作动态已加入监控列表。\n* **自动化**: 每日 09:00 将准时推送至此群。\n\n[点击查看最新精编网页](https://my.jekyll14.cn:9004/shtml/news/The_Briefing_Digest_Davos_Earnings_2026.html)"
-            }
-          }'
+          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"Hello! 这是一条来自 GitHub 的纯文本测试。\"}}"
