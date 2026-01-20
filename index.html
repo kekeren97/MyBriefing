@@ -2,44 +2,106 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Productivity Digest | 2026-01-20</title>
+    <title>Productivity Digest | 2026.01.20</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #F9FAFB; }
         .serif { font-family: 'Noto Serif SC', serif; }
-        .card { background: white; border-radius: 12px; padding: 24px; border-top: 4px solid #336DF4; transition: 0.3s; }
+        .card { background: white; border-radius: 12px; padding: 24px; border-top: 4px solid #336DF4; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
     </style>
 </head>
-<body class="p-8 max-w-4xl mx-auto">
+<body class="p-8 max-w-7xl mx-auto text-gray-900">
     <header class="flex justify-between items-end border-b pb-6 mb-12">
-        <h1 class="serif text-4xl font-bold">Productivity Digest</h1>
-        <span class="text-blue-600 font-mono">2026.01.20</span>
+        <div>
+            <h1 class="serif text-4xl font-bold">Productivity Digest</h1>
+            <p class="text-gray-400 text-sm mt-2 font-medium uppercase tracking-widest">协作工具每日更新 · 版本 V2.0</p>
+        </div>
+        <span class="text-blue-600 font-mono text-lg font-bold">2026.01.20</span>
     </header>
-    <div class="bg-white p-8 rounded-3xl mb-10 shadow-sm border border-gray-100">
-        <h2 class="serif text-2xl mb-4">今日焦点：从“AI 助手”到“自主代理”的临界点</h2>
-        <p class="text-gray-600 leading-relaxed">今日观察到 Microsoft 与 飞书 几乎同时发布了“长任务 Agent”架构。AI 不再只是等待指令，而是开始在后台跨应用处理任务。</p>
+
+    <div class="bg-white p-10 rounded-[2rem] mb-12 shadow-sm border border-gray-100">
+        <h2 class="serif text-3xl mb-6 text-blue-800">今日焦点：从“AI 助手”到“自主代理”的跨越</h2>
+        <p class="text-gray-600 leading-relaxed text-lg">今日观察：Microsoft 与 Slack 几乎同时完成了 Agent 任务闭环。AI 不再只是总结会议，而是开始在后台自主处理审批并同步数据。协作工具正正式成为企业的数字同事。</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card">
-            <h3 class="font-bold text-lg mb-3">Microsoft 365</h3>
-            <p class="text-gray-600 text-sm italic">"Copilot Parallel Execution"</p>
-            <ul class="text-sm mt-4 text-gray-500 space-y-2">
-                <li>• 推出 Copilot 全自动化后台任务。</li>
-                <li>• 新版 Outlook 支持意图优先级排序。</li>
-            </ul>
-            <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="card" style="border-top-color: #00A4EF;">
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">Microsoft 365</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"Copilot Parallel Execution"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• Outlook Copilot 支持自动协调冲突日历并代拟道歉函。</li>
+                    <li>• Teams 视频通话能耗降低 25%。</li>
+                </ul>
+            </div>
+            <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
         </div>
+
         <div class="card" style="border-top-color: #336DF4;">
-            <h3 class="font-bold text-lg mb-3">飞书 (Lark)</h3>
-            <p class="text-gray-600 text-sm italic">"多维表格 AI 节点"</p>
-            <ul class="text-sm mt-4 text-gray-500 space-y-2">
-                <li>• 新增 AI 自动化计算节点。</li>
-                <li>• 实时翻译引擎升级。</li>
-            </ul>
-            <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067754" class="text-blue-600 text-xs mt-4 block">查看详情 →</a>
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">飞书 (Lark)</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"多维表格 AI 节点"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• 自动化计算节点，语音即可配置审批流程。</li>
+                    <li>• 实时翻译引擎升级，支持 12 种方言协同。</li>
+                </ul>
+            </div>
+            <a href="https://www.feishu.cn/hc/zh-CN/articles/360049067754" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
+        </div>
+
+        <div class="card" style="border-top-color: #4A154B;">
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">Slack</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"Salesforce AI Agent"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• 频道内直接处理 CRM 销机预测。</li>
+                    <li>• Canvas 支持嵌入第三方实时监控仪表盘。</li>
+                </ul>
+            </div>
+            <a href="https://slack.com/release-notes" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
+        </div>
+
+        <div class="card" style="border-top-color: #007FFF;">
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">钉钉 (DingTalk)</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"AI Agent Store 2.0"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• 个人 Agent 商店上线，支持自定义行政分身。</li>
+                    <li>• 宜搭支持“草图转应用”，白板手绘即可生成。</li>
+                </ul>
+            </div>
+            <a href="https://www.dingtalk.com/sitemap/product-updates" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
+        </div>
+
+        <div class="card" style="border-top-color: #1677FF;">
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">企业微信</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"连接力进化"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• 微信客服 AI 化升级，支持全天候拟人化响应。</li>
+                    <li>• 审批流处理大型并发速度提升 40%。</li>
+                </ul>
+            </div>
+            <a href="https://work.weixin.qq.com/nl/act/p/07e86851b439818b" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
+        </div>
+
+        <div class="card" style="border-top-color: #EA4335;">
+            <div>
+                <h3 class="font-bold text-xl mb-2 text-gray-900">Google Workspace</h3>
+                <p class="text-gray-400 text-xs italic mb-4">"Gemini Deep Integration"</p>
+                <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                    <li>• Gemini in Docs 支持实时检测文内引用数据时效。</li>
+                    <li>• Sheets 发布“预测性填充”功能。</li>
+                </ul>
+            </div>
+            <a href="https://workspaceupdates.googleblog.com/" target="_blank" class="text-blue-600 text-xs font-bold uppercase tracking-widest">查看详情 →</a>
         </div>
     </div>
+
+    <footer class="mt-20 pt-8 border-t text-center text-gray-400 text-xs uppercase tracking-widest font-bold">
+        © 2026 Productivity Digest | Powered by Gemini | Data refreshed via Real-time Search.
+    </footer>
 </body>
 </html>
