@@ -71,8 +71,8 @@ jobs:
           git commit -m "Update daily report"
           git push
 
-      - name: Send to WPS
+      - name: Notify WPS
         run: |
           curl -L -X POST "https://365.kdocs.cn/woa/api/v1/webhook/send?key=ff212f0845bcd36b168a850730de77fa" \
           -H "Content-Type: application/json" \
-          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"🚀 Productivity Digest | 今日日报已生成\n\n今日核心：AI 代理化浪潮席卷协作工具。\n\n🔗 点击下方链接直接查看精美网页版：\nhttps://kekeren97.github.io/MyBriefing/\"}}"
+          -d "{\"msgtype\":\"text\",\"text\":{\"content\":\"🚀 Productivity Digest | 今日日报已生成\n\n今日焦点：AI 代理化浪潮席卷协作工具。\n\n🔗 网页版已同步（点击直接查看）：\nhttps://kekeren97.github.io/MyBriefing/\"}}"
