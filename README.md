@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>微软 FY26 Q2：AI 带来的收入与成本（手机端信息图）</title>
+
+  <!-- Fonts (optional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- ECharts -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#f4f4f2;
+      --card:#ffffff;
+      --ink:#1f2328;
+      --muted:#6b7280;
+      --line:#e6e6e3;
+
+      --deep-blue:#1f5a6a;
+      --deep-green:#4f7f5b;
+      --deep-red:#b15245;
+      --sand:#d5b35f;
+      --stone:#9aa0a6;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.06);
+      --radius: 18px;
+      --max: 980px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC","Hiragino Sans GB","Microsoft YaHei", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a{color:inherit}
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 18px 14px 70px;
+      padding-bottom: calc(70px + env(safe-area-inset-bottom));
+    }
+
+    /* Header */
+    .hero{ padding: 18px 8px 10px; }
+    .kicker{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1{
+      margin: 10px 0 8px;
+      font-family: "Noto Serif SC", serif;
+      font-size: 30px;
+      line-height: 1.18;
+      letter-spacing: .02em;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    /* Sticky nav */
+    .sticky{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 10px 0 12px;
+      padding: 10px 10px;
+      background: rgba(244,244,242,.86);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar{display:none}
+    .chip{
+      flex:0 0 auto;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 12px;
+      color: #2a2f36;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: .15s ease;
+    }
+    .chip:active{transform: scale(.98)}
+    .chip b{font-weight:600}
+    .chip .dot{
+      display:inline-block;
+      width:8px;height:8px;border-radius:99px;margin-right:6px;
+      background: var(--stone);
+      vertical-align: -1px;
+    }
+
+    /* Cards */
+    .grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding: 16px 16px 8px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .card h2{
+      margin:0;
+      font-family: "Noto Serif SC", serif;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .tag{
+      flex:0 0 auto;
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: #fafafa;
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .meta{
+      padding: 0 16px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+    .chart{
+      height: 310px;
+      width: 100%;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+    .pad{ padding: 14px 16px 16px; }
+
+    /* Metric strip */
+    .metrics{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .m{
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      padding: 10px 10px;
+      background: #fbfbfb;
+    }
+    .m .k{ font-size: 11px; color: var(--muted); }
+    .m .v{
+      margin-top: 6px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing:.01em;
+    }
+    .m .u{
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .m .s{
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Tables */
+    .tbl{
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fcfcfc;
+    }
+    .tbl th, .tbl td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .tbl th{
+      text-align: left;
+      color: #2a2f36;
+      background: #fafafa;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .tbl tr:last-child td{ border-bottom: none; }
+    .muted{ color: var(--muted); }
+    .mono{ font-family: var(--mono); }
+
+    /* Disclosure & accordion */
+    details{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background:#fcfcfc;
+      padding: 10px 12px;
+      margin-top: 12px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:600;
+      font-size: 13px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .caret{
+      width: 10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+      transform: rotate(45deg);
+      transition:.15s ease;
+      margin-left: 10px;
+    }
+    details[open] .caret{transform: rotate(225deg)}
+    .note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+    .bullet{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* Modal */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 18, 20, .42);
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding: 14px;
+      padding-bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index: 999;
+    }
+    .modal.show{display:flex}
+    .sheet{
+      width: min(var(--max), 100%);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sheet-h{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .sheet-h b{font-size: 14px}
+    .x{
+      border: 1px solid var(--line);
+      background:#fafafa;
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .sheet-b{
+      padding: 12px 14px 16px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.8;
+    }
+    .sheet-b code{
+      background:#f3f4f6;
+      padding: 2px 6px;
+      border-radius: 8px;
+      color:#374151;
+      font-family: var(--mono);
+    }
+
+    /* Small helper buttons */
+    .btnrow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .btn{
+      appearance:none;
+      border: 1px solid var(--line);
+      background: #fafafa;
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .btn b{font-weight:600}
+
+    /* Footer */
+    .footer{
+      margin-top: 14px;
+      padding: 16px 8px 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.75;
+    }
+    .src{
+      margin-top: 8px;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+    .src a{
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.6);
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    @media (min-width: 860px){
+      h1{font-size: 38px}
+      .grid{grid-template-columns: 1fr 1fr}
+      .card.full{grid-column: 1 / -1}
+      .chart{height: 340px}
+      .metrics{grid-template-columns: repeat(4, 1fr)}
+      .modal{align-items:center}
+      .sheet{border-radius: 22px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">FY26 · Q2 · Earnings / AI Economics</div>
+      <h1>微软 FY26 Q2：AI 带来的收入与成本</h1>
+      <p class="sub">
+        微软通常不单独披露“AI收入”。本页把 <b>已披露的AI信号</b>、<b>可反推的订阅收入区间</b>、以及<b>成本/CapEx</b>放在同一张手机端信息图里，便于你做内部汇报与定价讨论。
+      </p>
+    </header>
+
+    <div class="sticky">
+      <nav class="nav" aria-label="section nav">
+        <a class="chip" href="#kpi"><span class="dot" style="background:var(--stone)"></span><b>关键指标</b></a>
+        <a class="chip" href="#m365"><span class="dot" style="background:var(--sand)"></span>M365 Copilot</a>
+        <a class="chip" href="#gh"><span class="dot" style="background:var(--deep-blue)"></span>GitHub Copilot</a>
+        <a class="chip" href="#cost"><span class="dot" style="background:var(--deep-red)"></span>成本与CapEx</a>
+        <a class="chip" href="#curve"><span class="dot" style="background:var(--deep-green)"></span>五年曲线</a>
+        <a class="chip" href="#sources"><span class="dot" style="background:var(--stone)"></span>来源</a>
+      </nav>
+    </div>
+
+    <!-- KPI -->
+    <section class="card full" id="kpi">
+      <div class="card-h">
+        <h2>本季度“AI相关”可量化信号</h2>
+        <span class="tag">披露口径：财报/电话会</span>
+      </div>
+      <div class="meta">
+        这些不是“AI收入”本身，但能反映 AI 正在驱动哪些增长（云/订阅/ARPU）以及成本压力来自哪里（CapEx/折旧/算力）。
+      </div>
+
+      <div class="pad">
+        <div class="metrics">
+          <div class="m">
+            <div class="k">总营收</div>
+            <div class="v">81.3<span class="u">B 美元</span></div>
+            <div class="s">FY26 Q2（单季）</div>
+          </div>
+          <div class="m">
+            <div class="k">Microsoft Cloud 营收</div>
+            <div class="v">51.5<span class="u">B 美元</span></div>
+            <div class="s">FY26 Q2（单季）</div>
+          </div>
+          <div class="m">
+            <div class="k">Azure & 相关服务增速</div>
+            <div class="v">+39<span class="u">%</span></div>
+            <div class="s">FY26 Q2（同比）</div>
+          </div>
+          <div class="m">
+            <div class="k">资本开支（CapEx）</div>
+            <div class="v">37.5<span class="u">B 美元</span></div>
+            <div class="s">FY26 Q2（披露值）</div>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn" data-modal="m_ai_signal"><b>为什么这些算“AI信号”？</b></button>
+          <button class="btn" data-modal="m_no_ai_rev"><b>财报没披露AI收入怎么办？</b></button>
+        </div>
+
+        <details>
+          <summary>
+            读图方式（适合给老板讲的 20 秒版本）
+            <span class="caret" aria-hidden="true"></span>
+          </summary>
+          <div class="note">
+            <ul class="bullet">
+              <li><b>收入侧</b>：AI 最容易体现在“云消费增量”（Azure 增速、Cloud 体量）与“订阅ARPU提升”（Copilot/E5 拉动）。</li>
+              <li><b>成本侧</b>：CapEx 前置 → 折旧/算力/运维上升，短期压毛利；长期换供给与规模。</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- M365 Copilot Revenue Estimate -->
+      <section class="card full" id="m365">
+        <div class="card-h">
+          <h2>AI 订阅产品：可反推的收入信号</h2>
+          <span class="tag">非官方披露：区间测算</span>
+        </div>
+        <div class="meta">
+          微软未单独披露“AI收入”，但披露了可定价的 Copilot 付费规模（paid seats）与公开定价，可用于做 <b>年化收入能力</b> 的区间估算（用于内部判断/对标，不建议对外当作“确数”）。
+        </div>
+
+        <div class="chart" id="chartM365"></div>
+
+        <div class="pad">
+          <table class="tbl" aria-label="m365 coefficient table">
+            <thead>
+              <tr>
+                <th style="width:90px;">情景</th>
+                <th style="width:80px;">系数</th>
+                <th>系数拆解（你可按内部口径替换）</th>
+                <th style="width:140px;">年化收入（$B）</th>
+              </tr>
+            </thead>
+            <tbody id="m365CoefBody"></tbody>
+          </table>
+
+          <div class="note">
+            <div><b>计算公式（年化收入能力）</b></div>
+            <div class="mono muted" style="margin-top:6px;">
+              年化收入（$B） = seats × 公开定价（$/user/月） × 12 × 系数 ÷ 1,000,000,000
+            </div>
+          </div>
+
+          <details>
+            <summary>为什么要用“系数”？<span class="caret"></span></summary>
+            <div class="note">
+              系数用于把“披露的 seats × 标价”校正为更接近财务口径的年化能力，常见影响项：
+              <ul class="bullet">
+                <li><b>折扣/企业协议</b>：大客户常有 EA 折扣或打包价。</li>
+                <li><b>未满周期</b>：当季新增席位不等于“全年满打满算”。</li>
+                <li><b>订单结构</b>：按年付/分期、以及与 E5/安全/其他套件打包。</li>
+              </ul>
+            </div>
+          </details>
+
+          <div class="btnrow">
+            <button class="btn" data-modal="m_m365_inputs"><b>我该怎么替换系数/输入？</b></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- GitHub Copilot -->
+      <section class="card full" id="gh">
+        <div class="card-h">
+          <h2>GitHub Copilot：订阅收入区间（单独成图）</h2>
+          <span class="tag">非官方披露：ARPU 情景</span>
+        </div>
+        <div class="meta">
+          已披露：<b>4.7M paid subscribers</b>。但付费结构（Pro/Business/Enterprise）混合不披露，因此用 <b>ARPU（月均$/人）</b> 做区间估计更稳妥。
+        </div>
+
+        <div class="chart" id="chartGH"></div>
+
+        <div class="pad">
+          <table class="tbl" aria-label="github pricing reference">
+            <thead>
+              <tr>
+                <th style="width:120px;">参考定价（公开）</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">$10 / 月</td>
+                <td class="muted">Copilot Pro（个人）</td>
+              </tr>
+              <tr>
+                <td class="mono">$19 / 月/seat</td>
+                <td class="muted">Copilot Business（组织）</td>
+              </tr>
+              <tr>
+                <td class="mono">$39 / 月/seat</td>
+                <td class="muted">Copilot Enterprise（企业）</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <details>
+            <summary>为什么我不用“某一个定价 × 4.7M”？<span class="caret"></span></summary>
+            <div class="note">
+              4.7M paid 里既可能包含大量 $10 的个人订阅，也可能包含更高价的企业 seat。用 ARPU 情景（比如 $12/$18/$24）比“选一个价格硬乘”更抗质疑。
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Cost / CapEx -->
+      <section class="card full" id="cost">
+        <div class="card-h">
+          <h2>成本：AI 把钱花在哪（CapEx 视角）</h2>
+          <span class="tag">CapEx / 折旧压力</span>
+        </div>
+        <div class="meta">
+          AI 的核心成本不是“模型本身”，而是 GPU、数据中心、折旧，以及推理带来的持续消耗。下图用“示意结构”表达成本重心（避免伪精确）。
+        </div>
+        <div class="chart" id="chartCost"></div>
+        <div class="pad">
+          <details>
+            <summary>你可以怎么讲（成本侧）<span class="caret"></span></summary>
+            <div class="note">
+              <ul class="bullet">
+                <li><b>CapEx 上升</b>≈ AI 供给扩张：更多 GPU + 数据中心容量。</li>
+                <li><b>短期压力</b>：折旧上升、能耗/运维上升 → 毛利率可能承压。</li>
+                <li><b>长期逻辑</b>：供给优势 + 规模摊薄，最终要回到“单位经济变好”。</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 5Y Curve -->
+      <section class="card full" id="curve">
+        <div class="card-h">
+          <h2>微软 365 & Office：连续五年收入曲线（代理口径）</h2>
+          <span class="tag">TTM（5Y）</span>
+        </div>
+        <div class="meta">
+          微软并不公开披露“单独的 Microsoft 365 收入/Office 收入绝对值”。这里用最可验证的代理：<b>Productivity & Business Processes（PBP）</b> 的 TTM 5 年走势来承载 M365/Office 生态的收入变化（包含 Office/M365、LinkedIn、Dynamics 等）。
+        </div>
+        <div class="chart" id="chart5y"></div>
+        <div class="pad">
+          <div class="note">
+            若你内部有更“纯”的 M365/Office 口径（比如只取 Office Commercial products & cloud services），把下面 JS 里的数组替换即可，图会自动更新。
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Sources -->
+    <section class="footer" id="sources">
+      <div class="kicker">Sources</div>
+      <div style="margin-top:6px; font-family:'Noto Serif SC',serif; font-size:18px; color:var(--ink);">数据来源（点击打开）</div>
+      <div class="src">
+        <a href="https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast" target="_blank" rel="noopener">
+          微软 IR：FY26 Q2 Press Release / Webcast（总营收、Cloud、CapEx 等）:contentReference[oaicite:1]{index=1}
+        </a>
+        <a href="https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/productivity-and-business-processes-performance" target="_blank" rel="noopener">
+          微软 IR：FY26 Q2 PBP Performance（提到 Copilot/E5 拉动 RPU 等）:contentReference[oaicite:2]{index=2}
+        </a>
+        <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing/enterprise" target="_blank" rel="noopener">
+          Microsoft 365 Copilot 定价：$30 user/month（paid yearly）:contentReference[oaicite:3]{index=3}
+        </a>
+        <a href="https://docs.github.com/en/copilot/get-started/plans" target="_blank" rel="noopener">
+          GitHub Copilot Plans（Pro/Business/Enterprise 定价）:contentReference[oaicite:4]{index=4}
+        </a>
+        <a href="https://stockanalysis.com/stocks/msft/metrics/revenue-by-segment/" target="_blank" rel="noopener">
+          MSFT 分部收入（TTM 5Y 汇总表，用于 PBP 代理曲线）:contentReference[oaicite:5]{index=5}
+        </a>
+      </div>
+
+      <div style="margin-top:10px;">
+        注：本页的“收入区间估算/系数”属于分析框架与内部判断用口径，不代表微软官方拆分披露。
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+      <div class="sheet-h">
+        <b id="mtitle">说明</b>
+        <button class="x" id="close" aria-label="Close">✕</button>
+      </div>
+      <div class="sheet-b" id="mbody"></div>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // Disclosed / Inputs (edit here)
+    // -----------------------------
+    const disclosed = {
+      // FY26 Q2 key signals (from MS IR / coverage)
+      total_revenue_b: 81.3,
+      ms_cloud_b: 51.5,
+      azure_yoy_pct: 39,
+      capex_b: 37.5,
+
+      // Copilot counts user provided in your note (paid seats / subscribers)
+      // 你后续如果要换成更新的披露口径，改这里即可
+      m365_copilot_paid_seats: 15_000_000,
+      gh_copilot_paid: 4_700_000
+    };
+
+    // Microsoft 365 Copilot enterprise pricing (public list price)
+    // $30 user/month paid yearly
+    const M365_PRICE_PER_USER_PER_MONTH = 30; // :contentReference[oaicite:6]{index=6}
+
+    // ---- M365 Copilot coefficient scenarios (you can tune) ----
+    // “系数”= 折扣系数 × 期内有效系数 × 打包/非纯价系数
+    // 说明：这里只做“区间估算”模板，避免伪精确。
+    const m365Scenarios = [
+      {
+        name: "保守",
+        coef: 0.55,
+        breakdown: "折扣 0.75 × 未满周期 0.80 × 打包/非纯价 0.92",
+        color: css("--stone")
+      },
+      {
+        name: "基准",
+        coef: 0.75,
+        breakdown: "折扣 0.85 × 未满周期 0.90 × 打包/非纯价 0.98",
+        color: css("--sand")
+      },
+      {
+        name: "乐观",
+        coef: 0.90,
+        breakdown: "折扣 0.92 × 未满周期 0.95 × 打包/非纯价 1.03",
+        color: css("--stone")
+      }
+    ];
+
+    // ---- GitHub Copilot ARPU scenarios (month) ----
+    // 用 ARPU（月均$/人）做区间比“选一个定价硬乘”更抗质疑
+    // 定价参考：Pro $10，Business $19，Enterprise $39 :contentReference[oaicite:7]{index=7}
+    const ghArpuScenarios = [
+      { name: "保守 ARPU", arpu: 12, color: css("--stone") },
+      { name: "基准 ARPU", arpu: 18, color: css("--deep-blue") },
+      { name: "乐观 ARPU", arpu: 24, color: css("--deep-green") }
+    ];
+
+    // ---- CapEx split (illustrative only) ----
+    const capexSplit = [
+      {name:'数据中心/算力设备（示意）', value: 70, color: css("--deep-red")},
+      {name:'网络/存储/电力（示意）', value: 18, color: css("--sand")},
+      {name:'其他（示意）', value: 12, color: css("--stone")}
+    ];
+
+    // ---- 5Y proxy curve (PBP TTM @ Sep 30 each year) ----
+    // From StockAnalysis table :contentReference[oaicite:8]{index=8}
+    const pbp5y = [
+      { year: "FY21", value: 56.64 }, // Sep 30 2021
+      { year: "FY22", value: 64.79 }, // Sep 30 2022
+      { year: "FY23", value: 71.40 }, // Sep 30 2023
+      { year: "FY24", value: 87.45 }, // Sep 30 2024
+      { year: "FY25", value: 125.51 } // Sep 30 2025
+    ];
+
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+    function fmtB(x){ return `${Number(x).toFixed(2)} $B`; } // billions USD
+    function annualB(seats, pricePerMonth, coef){
+      return (seats * pricePerMonth * 12 * coef) / 1e9;
+    }
+    function annualB_fromARPU(users, arpu){
+      return (users * arpu * 12) / 1e9;
+    }
+
+    // -----------------------------
+    // Fill M365 coef table
+    // -----------------------------
+    (function fillTable(){
+      const tbody = document.getElementById("m365CoefBody");
+      const seats = disclosed.m365_copilot_paid_seats;
+      const rows = m365Scenarios.map(s => {
+        const val = annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef);
+        return `
+          <tr>
+            <td><b>${s.name}</b></td>
+            <td class="mono">${s.coef.toFixed(2)}</td>
+            <td class="muted">${s.breakdown}</td>
+            <td class="mono"><b>${val.toFixed(2)}</b></td>
+          </tr>
+        `;
+      }).join("");
+      tbody.innerHTML = rows;
+    })();
+
+    // -----------------------------
+    // ECharts common
+    // -----------------------------
+    const common = {
+      textStyle: {fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "PingFang SC","Microsoft YaHei", Arial'},
+      tooltip: {
+        trigger: 'item',
+        backgroundColor: 'rgba(255,255,255,.96)',
+        borderColor: '#e6e6e3',
+        borderWidth: 1,
+        textStyle: {color:'#1f2328', fontSize: 12},
+        extraCssText: 'box-shadow: 0 10px 30px rgba(0,0,0,.08); border-radius: 12px;'
+      }
+    };
+
+    // -----------------------------
+    // Chart: M365 Copilot annualized revenue capability
+    // -----------------------------
+    (function(){
+      const el = document.getElementById("chartM365");
+      const c = echarts.init(el, null, {renderer:"canvas"});
+
+      const seats = disclosed.m365_copilot_paid_seats;
+      const seriesData = m365Scenarios.map(s => {
+        const v = annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef);
+        return {
+          name: s.name,
+          value: v,
+          itemStyle: { color: s.color, borderRadius: [10,10,0,0] }
+        };
+      });
+
+      const option = {
+        ...common,
+        grid: {left: 52, right: 18, top: 56, bottom: 72},
+        title: [
+          {
+            text: "M365 Copilot 年化收入能力（区间估算）",
+            left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
+          },
+          {
+            text: `单位：十亿美元（$B） | seats=${(seats/1e6).toFixed(1)}M × $${M365_PRICE_PER_USER_PER_MONTH}/月 × 12 × 系数`,
+            left: 16, top: 34,
+            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+          }
+        ],
+        xAxis: {
+          type: "category",
+          data: m365Scenarios.map(s => s.name),
+          axisTick: {show:false},
+          axisLine: {lineStyle:{color: css("--line")}},
+          axisLabel: {color: css("--muted"), fontSize: 12}
+        },
+        yAxis: {
+          type: "value",
+          name: "$B（年化）",
+          nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
+          axisTick: {show:false},
+          axisLine: {show:false},
+          splitLine: {lineStyle:{color:"#efefec"}}
+        },
+        series: [
+          {
+            type: "bar",
+            barWidth: 46,
+            data: seriesData,
+            label: {
+              show: true,
+              position: "top",
+              formatter: (p) => fmtB(p.value),
+              color: "#2a2f36",
+              fontSize: 12,
+              fontWeight: 600
+            }
+          }
+        ],
+        graphic: [
+          {
+            type: "text",
+            left: 16,
+            bottom: 18,
+            style: {
+              text: "注：区间系数用于反映折扣、未满周期、合同打包等现实因素；建议对外表述用“年化能力区间”，不报单点。",
+              fill: css("--muted"),
+              fontSize: 11
+            }
+          }
+        ]
+      };
+
+      c.setOption(option);
+      window.addEventListener("resize", ()=>c.resize());
+    })();
+
+    // -----------------------------
+    // Chart: GitHub Copilot annualized revenue (ARPU scenarios)
+    // -----------------------------
+    (function(){
+      const el = document.getElementById("chartGH");
+      const c = echarts.init(el, null, {renderer:"canvas"});
+
+      const users = disclosed.gh_copilot_paid;
+      const seriesData = ghArpuScenarios.map(s => {
+        const v = annualB_fromARPU(users, s.arpu);
+        return {
+          name: s.name,
+          value: v,
+          itemStyle: { color: s.color, borderRadius: [10,10,0,0] }
+        };
+      });
+
+      const option = {
+        ...common,
+        grid: {left: 52, right: 18, top: 56, bottom: 78},
+        title: [
+          {
+            text: "GitHub Copilot 年化收入能力（ARPU 情景）",
+            left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
+          },
+          {
+            text: `单位：十亿美元（$B） | paid=${(users/1e6).toFixed(1)}M × ARPU（$/月） × 12`,
+            left: 16, top: 34,
+            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+          }
+        ],
+        xAxis: {
+          type: "category",
+          data: ghArpuScenarios.map(s => `${s.arpu}$/月`),
+          axisTick: {show:false},
+          axisLine: {lineStyle:{color: css("--line")}},
+          axisLabel: {color: css("--muted"), fontSize: 12}
+        },
+        yAxis: {
+          type: "value",
+          name: "$B（年化）",
+          nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
+          axisTick: {show:false},
+          axisLine: {show:false},
+          splitLine: {lineStyle:{color:"#efefec"}}
+        },
+        series: [
+          {
+            type: "bar",
+            barWidth: 46,
+            data: seriesData,
+            label: {
+              show: true,
+              position: "top",
+              formatter: (p) => fmtB(p.value),
+              color: "#2a2f36",
+              fontSize: 12,
+              fontWeight: 600
+            }
+          }
+        ],
+        graphic: [
+          {
+            type: "text",
+            left: 16,
+            bottom: 18,
+            style: {
+              text: "注：ARPU 情景用于覆盖 Pro/Business/Enterprise 的定价混合差异（公开定价：$10/$19/$39）。",
+              fill: css("--muted"),
+              fontSize: 11
+            }
+          }
+        ]
+      };
+
+      c.setOption(option);
+      window.addEventListener("resize", ()=>c.resize());
+    })();
+
+    // -----------------------------
+    // Chart: Cost / CapEx (illustrative pie)
+    // -----------------------------
+    (function(){
+      const el = document.getElementById('chartCost');
+      const c = echarts.init(el, null, {renderer:'canvas'});
+      const option = {
+        ...common,
+        grid: {left: 16, right: 16, top: 44, bottom: 18},
+        title: [
+          {
+            text: `CapEx：$${disclosed.capex_b}B（AI 基础设施为主）`,
+            left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:'#2a2f36'}
+          },
+          {
+            text: `单位：结构占比（示意）`,
+            left: 16, top: 34,
+            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+          }
+        ],
+        series: [
+          {
+            name: 'CapEx 去向（示意）',
+            type: 'pie',
+            radius: ['36%','72%'],
+            center: ['50%','56%'],
+            avoidLabelOverlap: true,
+            itemStyle: {borderColor:'#fff', borderWidth: 2},
+            label: {
+              color:'#2a2f36',
+              formatter: (p)=> `${p.name}\n${p.value}%`,
+              fontSize: 11
+            },
+            labelLine: {length: 10, length2: 8, lineStyle:{color:'#d9d9d6'}},
+            data: capexSplit.map(d=>({name:d.name, value:d.value, itemStyle:{color:d.color}}))
+          }
+        ],
+        graphic: [
+          {
+            type: 'text',
+            left: 16,
+            bottom: 16,
+            style: {
+              text: '注：饼图为“示意结构”，用于表达成本重心在算力/数据中心；精确拆分需内部成本台账或供应链口径。',
+              fill: css("--muted"),
+              fontSize: 11
+            }
+          }
+        ]
+      };
+      c.setOption(option);
+      window.addEventListener('resize', ()=>c.resize());
+    })();
+
+    // -----------------------------
+    // Chart: 5Y curve (PBP proxy)
+    // -----------------------------
+    (function(){
+      const el = document.getElementById("chart5y");
+      const c = echarts.init(el, null, {renderer:"canvas"});
+
+      const option = {
+        ...common,
+        grid: {left: 54, right: 18, top: 56, bottom: 76},
+        title: [
+          {
+            text: "PBP（含 Office/M365 等）TTM 5Y 走势（代理）",
+            left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
+          },
+          {
+            text: "单位：十亿美元（$B）| FY 口径：Sep 30 TTM",
+            left: 16, top: 34,
+            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+          }
+        ],
+        xAxis: {
+          type: "category",
+          data: pbp5y.map(d => d.year),
+          axisTick: {show:false},
+          axisLine: {lineStyle:{color: css("--line")}},
+          axisLabel: {color: css("--muted"), fontSize: 12}
+        },
+        yAxis: {
+          type: "value",
+          name: "$B（TTM）",
+          nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
+          axisTick: {show:false},
+          axisLine: {show:false},
+          splitLine: {lineStyle:{color:"#efefec"}}
+        },
+        series: [
+          {
+            name: "PBP TTM",
+            type: "line",
+            data: pbp5y.map(d => d.value),
+            symbol: "circle",
+            symbolSize: 8,
+            lineStyle: {width: 3, color: css("--deep-green")},
+            itemStyle: {color: css("--deep-green")},
+            label: {
+              show: true,
+              formatter: (p) => `${Number(p.value).toFixed(1)}B`,
+              color: "#2a2f36",
+              fontSize: 11,
+              fontWeight: 600
+            }
+          }
+        ],
+        graphic: [
+          {
+            type: "text",
+            left: 16,
+            bottom: 18,
+            style: {
+              text: "注：微软未披露“纯 M365/Office 收入绝对值”。该曲线为 PBP 分部代理口径（包含 Office/M365、LinkedIn、Dynamics 等）。",
+              fill: css("--muted"),
+              fontSize: 11
+            }
+          }
+        ]
+      };
+
+      c.setOption(option);
+      window.addEventListener("resize", ()=>c.resize());
+    })();
+
+    // -----------------------------
+    // Modal content
+    // -----------------------------
+    const MODALS = {
+      m_ai_signal: {
+        title: "为什么这些算“AI信号”？",
+        body: `
+          <p><b>微软不单列 AI 收入</b>时，外部最可靠的做法是看“AI 会直接推高”的指标：</p>
+          <ul>
+            <li><code>Azure 增速</code>：AI 推理/训练/数据平台 → 云消费增加（收入侧代理）。</li>
+            <li><code>Microsoft Cloud 体量</code>：AI 商业化通常绑定订阅与云服务组合。</li>
+            <li><code>CapEx</code>：算力与数据中心投入，是 AI 成本最直接的压力源。</li>
+          </ul>
+          <p>这些指标能让你在不虚构 AI 收入的前提下，仍讲清“AI 在拉增长，也在压成本”。</p>
+        `
+      },
+      m_no_ai_rev: {
+        title: "财报没披露 AI 收入怎么办？",
+        body: `
+          <p>建议分两层讲：</p>
+          <ol>
+            <li><b>对外</b>：只引用财报披露（云增长、CapEx、毛利/利润率变化）。</li>
+            <li><b>对内</b>：做“AI 归因模型”——产品直归因（seat×单价）、云消费归因、增量归因（更抗质疑）。</li>
+          </ol>
+          <p>这样既合规，又能让老板看到 AI 的真实经济性。</p>
+        `
+      },
+      m_m365_inputs: {
+        title: "我该怎么替换系数/输入？",
+        body: `
+          <p>你只需要改 3 个位置：</p>
+          <ul>
+            <li><code>m365_copilot_paid_seats</code>：用你掌握的最新披露/内部口径。</li>
+            <li><code>M365_PRICE_PER_USER_PER_MONTH</code>：若你用地区价/EA价，可换成有效净价。</li>
+            <li><code>m365Scenarios.coef</code>：把系数拆成（折扣×未满周期×打包）更容易在老板面前解释。</li>
+          </ul>
+          <p>若你希望“按季度收入”而非年化：把公式里的 <code>×12</code> 换成 <code>×3</code> 并增加“当季平均有效 seats”的口径。</p>
+        `
+      }
+    };
+
+    // -----------------------------
+    // Modal open/close
+    // -----------------------------
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementById('close');
+    const mtitle = document.getElementById('mtitle');
+    const mbody  = document.getElementById('mbody');
+
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('[data-modal]');
+      if(btn){
+        const key = btn.getAttribute('data-modal');
+        const item = MODALS[key];
+        if(!item) return;
+        mtitle.textContent = item.title;
+        mbody.innerHTML = item.body;
+        modal.classList.add('show');
+      }
+      if(e.target === modal) modal.classList.remove('show');
+    });
+    closeBtn.addEventListener('click', ()=> modal.classList.remove('show'));
+  </script>
+</body>
+</html>
